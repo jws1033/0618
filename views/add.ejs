@@ -26,8 +26,8 @@
     <article>
         <!-- localhost:5000/topic/add  POST방식으로 요청-->
         <form action="/topic/add" method="post">
-          <p><input type="text" name="title" value='<%= topics.title %>' placeholder="title" ></p> // value를 통하여 전달받은 topic객체의(수정해야할) 데이터를 표시할 수 있다.
-          <p><textarea name="description" rows="6" cols="50" placeholder="description"><%= topics.description %></textarea></p>// textarea는 태그들 사이에 데이터를 입력해야 표시가능.(	rows는 행이고, cols는 열이다 이걸 통하여 textarea의 크기를 조정한다. )
+          <p><input type="text" name="title" value='<%= topics.title %>' placeholder="title" ></p> 
+          <p><textarea name="description" rows="6" cols="50" placeholder="description"><%= topics.description %></textarea></p>
           <p><input type="text" name="author" value='<%= topics.author %>' placeholder="author"></p>
           <p><input type="submit"></p>
         </form>

@@ -20,9 +20,41 @@ router.get('/topic/add',(req, res)=>{
 })
 })
 router.post('/topic/add',(req,res)=> {
-    res.send("sucess")
+    res.send("success")
 })
 
+router.get('/topic/edit/:id', (req, res)=>{
+    var id = req.params.id
+    var sql = `SELECT * FROM topic WHERE id=${id}`
+    db.query(sql, (err, result)=>{
+        if(err){
+            console.log(err)
+            res.status(500).send("Internal server Error")
+        }
+        console.log(result)
+        // console.log("테스트:" +id)
+        res.render("edit", {topic:result[0]})
+    })
+    
+})
+
+router.post('/topic/:id/edit', (req, res)=>{
+    var id = req.params.id
+    var title = req.body.title
+    var description = req.body.description
+    var author = req.body.author
+    var sql = `UPDATE topic SET title=? , description=? , author=? WHERE id= ${id}`
+    var upData = [title,description,author]
+    db.query(sql, upData, (err, result)=>{
+        if(err) {
+            console.log(err)
+            res.status(500).send("Internal Long time Error")
+        }
+        console.log(title,description,author)
+        res.redirect(`/topic/${id}`)
+    })
+    
+})
 
 router.get(['/topic','/topic/:id'] , (req, res)=>{
     var sql =`SELECT * FROM topic`
