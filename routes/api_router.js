@@ -19,8 +19,22 @@ router.get('/topic/add',(req, res)=>{
  res.render("add",{topics:result})
 })
 })
-router.post('/topic/add',(req,res)=> {
-    res.send("success")
+router.post('/topic/add', (req, res)=>{
+    console.log(req.body);
+    var title = req.body.title;
+    var description = req.body.description;
+    var author = req.body.author;
+    var sql = `INSERT INTO topic ( title, description,author ) VALUES (?, ?, ?)`;
+    var params = [title, description ,author];
+    db.query(sql,params, (err , result)=>{
+        if(err){
+            console.log(err)
+            res.status(500).send("Internel Sever Error")
+        }
+
+        console.log('성공적으로 저장 되었습니다.')
+        res.redirect(`/topic/${result.insertId}`)
+    })
 })
 
 router.get('/topic/edit/:id', (req, res)=>{
