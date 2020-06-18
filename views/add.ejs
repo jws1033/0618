@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Server Side Javascript</h1>
+    <ol>
+        <% for(i=0;i<topics.length;i++) {%>
+        <li><%= topics[i].title %> &nbsp;:&nbsp; <%= topics[i].description %></li>
+        <% } %>
+    </ol>
+    <article>
+        <!-- localhost:5000/topic/add  POST방식으로 요청-->
+        <form action="/topic/add" method="post">
+          <p><input type="text" name="title" value='<%= topics.title %>' placeholder="title" ></p> // value를 통하여 전달받은 topic객체의(수정해야할) 데이터를 표시할 수 있다.
+          <p><textarea name="description" rows="6" cols="50" placeholder="description"><%= topics.description %></textarea></p>// textarea는 태그들 사이에 데이터를 입력해야 표시가능.(	rows는 행이고, cols는 열이다 이걸 통하여 textarea의 크기를 조정한다. )
+          <p><input type="text" name="author" value='<%= topics.author %>' placeholder="author"></p>
+          <p><input type="submit"></p>
+        </form>
+      </article>
+      <ul>
+          <li><a href="/topic/add">add</a></li>
+      </ul>
+      <a href="/topic"><button type="button" class="btn btn-primary" >홈</button></a>
+      <a href="/topic"><button type="button" class="btn btn-danger" >으</button></a>
+      <a href="/topic"><button type="button" class="btn btn-success" >로</button></a>
+</body>
+</html>
