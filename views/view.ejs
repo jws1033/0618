@@ -18,23 +18,51 @@
 </head>
 <body>
     <h1><a href="/topic">Side Javascript</a></h1>
-    <ol>
-        <% for(i=0;i<topics.length;i++) {%>
-        <a href="/topic/<%= topics[i].id %>">            
-        <li><%= topics[i].title %></a> &nbsp;:&nbsp; <%= topics[i].description %></li>
-        <% } %>
-    </ol>
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>TITLE</th>
+            <th>DESCRIPTION</th>
+            <th>AUTHOR</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% for(i=0;i<topics.length;i++) {%>
+          <tr>
+            <td><%= topics[i].id %></td>
+            <td><a href="/topic/<%= topics[i].id %>"><%= topics[i].title %></a></td>
+            <td><%= topics[i].description %></td>
+            <td><%= topics[i].author %></td>
+            <td><a href="/topic/delete/<%= topics[i].id %>"><button type="button" class="btn btn-warning" onclick="return deleteConfirm()">Delete</button></a></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    
     <% if(topic) {  %>
-    <h2><%= topic.title %></h2>
+        <div class="card" >
+            <div class="card-body"><%= topic.title %></div>
     <p><%= topic.description %></p>
     <p>by <%= topic.author %></p> <br>
-    <a href="/topic/add"><button type="button" class="btn btn-danger" >삭제</button></a>
+    <a href="/topic/delete/<%= topic.id %>"><button type="button" class="btn btn-danger" onclick="return deleteConfirm()">삭제</button></a>
     <a href="/topic/edit/<%= topic.id %>"><button type="button" class="btn btn-success" >수정</button></a>
+    </div>
     <% } else {  %>
-        <h2>Welcome</h2>
-        This is Server Side JavaScript Tutorial <br>
+        <div class="card" >
+            <div class="card-body">Welcome</div>
+            <div class="card bg-success text-white">
+                <div class="card-body">This is Server Side JavaScript Tutorial </div>
+              </div>
+        <br>
         <a href="/topic/add"><button type="button" class="btn btn-primary" >추가</button></a>
+        </div>
         <% } %>
-    
+        <script>
+            function deleteConfirm(){
+                return confirm("정말 삭제하시겠습니까?")
+            }
+        </script>
 </body>
 </html>
